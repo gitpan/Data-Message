@@ -4,7 +4,7 @@ use strict;
 
 use base qw[Email::Simple];
 use vars qw[$VERSION];
-$VERSION   = '1.01';
+$VERSION   = '1.011';
 
 my $private = \q[no peeking];
 
@@ -20,16 +20,6 @@ sub header_set {
     local $Email::Simple::GROUCHY = $self->{"$private"}->{grouchy};
     return $self->SUPER::header_set(@_);
 }
-
-sub _fold {
-    my ($self, $line) = @_;
-    return $line unless $self->{"$private"}->{fold};
-    return $self->SUPER::_fold($line);
-}
-
-
-sub _split_head_from_body { &Email::Simple::_split_head_from_body }
-sub _read_headers { &Email::Simple::_read_headers }
 
 1;
 
@@ -69,23 +59,11 @@ objects from scratch.
 
 =head2 new()
 
-  my $message = Data::Message->new(join( '', <> ),
-                                   fold    => 1,
-                                   grouchy => 1);
+  my $message = Data::Message->new(join( '', <> ));
 
 The first argument is a scalar value containing the text of the
 payload to be parsed. Subsequent arguments are passed as key/value
 pairs.
-
-C<fold>, which is false by default, will tell C<Data::Message> if
-it should fold headers. If given a true value, headers longer than
-78 characters will be folded.
-
-C<grouchy>, which is false by default, will instruct C<Data::Message>
-to complain loudly if non-ascii characters are used as header
-names, when setting headers via C<header_set()>. If C<grouchy> is
-true, calls to C<header_set()> should be wrapped in C<eval> as they
-may die.
 
 =head1 SEE ALSO
 

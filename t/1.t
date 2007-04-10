@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Test::More tests => 13;
+use Test::More tests => 10;
 
 sub read_file { local $/; local *FH; open FH, shift or die $!; return <FH> }
 use_ok("Data::Message");
@@ -9,7 +9,7 @@ my $mail_text = read_file("t/test-mails/josey-nofold");
 my $mail = Data::Message->new($mail_text);
 isa_ok($mail, "Data::Message");
 
-like($mail->{head}->{From}->[0], qr/Andrew/, "Andrew's in the header");
+like($mail->as_string, qr/From: Andrew/, "Andrew's in the header");
 
 my $old_from;
 is($old_from = $mail->header("From"), 
@@ -33,12 +33,3 @@ is($mail->body, $hi, "Body can be set properly");
 $mail->body_set($body);
 is($mail->as_string, $mail_text, "Good grief, it's round-trippable");
 is(Data::Message->new($mail->as_string)->as_string, $mail_text, "Good grief, it's still round-trippable");
-
-# With nasty newlines
-my $nasty = "Subject: test\n\rTo: foo\n\r\n\rfoo\n\r";
-$mail = Data::Message->new($nasty);
-my ($x,$y) = Data::Message::_split_head_from_body($nasty);
-is ($x, "Subject: test\n\rTo: foo\n\r", "Can split head OK");
-my $test = $mail->as_string;
-is($test, $nasty, "Round trip that too");
-is(Data::Message->new($mail->as_string)->as_string, $nasty, "... twice");

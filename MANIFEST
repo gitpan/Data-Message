@@ -1,17 +1,21 @@
 Changes
-lib/Data/Message.pm
 LICENSE
+MANIFEST
+META.json
+META.yml
 Makefile.PL
-MANIFEST			This list of files
 README
+dist.ini
+lib/Data/Message.pm
+t/00-compile.t
+t/000-report-versions-tiny.t
 t/1.t
 t/2.t
 t/3.t
 t/4.t
 t/5.t
-t/pod-coverage.t
-t/pod.t
 t/test-mails/josey-fold
 t/test-mails/josey-nofold
 t/test-mails/long-msgid
-META.yml                                 Module meta-data (added by MakeMaker)
+xt/release/changes_has_content.t
+xt/release/pod-syntax.t

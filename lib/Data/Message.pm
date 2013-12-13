@@ -1,7 +1,7 @@
 use strict;
 package Data::Message;
 {
-  $Data::Message::VERSION = '1.103';
+  $Data::Message::VERSION = '1.104';
 }
 # ABSTRACT: parse and build header-and-body messages (kinda like email)
 
@@ -29,13 +29,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Data::Message - parse and build header-and-body messages (kinda like email)
 
 =head1 VERSION
 
-version 1.103
+version 1.104
 
 =head1 SYNOPSIS
 
